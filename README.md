@@ -147,7 +147,11 @@ The following dependencies must be available:
 A service account with the following roles must be used to provision
 the resources of this module:
 
-- Filestore Admin: `roles/file.admin`
+- `roles/file.editor`
+- `roles/cloudkms.admin`
+- `roles/iam.serviceAccountAdmin`
+- `roles/serviceusage.serviceUsageAdmin`
+- `roles/resourcemanager.projectIamAdmin`
 
 The [Project Factory module](https://registry.terraform.io/modules/terraform-google-modules/project-factory/google) and the
 [IAM module](https://registry.terraform.io/modules/terraform-google-modules/iam/google) may be used in combination to provision a
@@ -159,6 +163,10 @@ A project with the following APIs enabled must be used to host the
 resources of this module:
 
 - Google Cloud Filestore API: `file.googleapis.com`
+- Cloud Resource Manager API: `cloudresourcemanager.googleapis.com`
+- Cloud IAM API: `iam.googleapis.com`
+- Cloud Billing API: `cloudbilling.googleapis.com`
+- Cloud Key Management Service (KMS) API: `cloudkms.googleapis.com`
 
 The [Project Factory module](https://registry.terraform.io/modules/terraform-google-modules/project-factory/google) can be used to
 provision a project with the necessary APIs enabled.
