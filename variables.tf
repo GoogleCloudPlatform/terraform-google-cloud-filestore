@@ -27,7 +27,7 @@ variable "location" {
 variable "tier" {
   description = "The service tier of the instance. Examples include BASIC_HDD, BASIC_SSD, ZONAL, REGIONAL, ENTERPRISE."
   type        = string
-  default     = "ZONAL"
+  default     = "REGIONAL"
 }
 
 variable "capacity_gb" {
@@ -39,7 +39,7 @@ variable "capacity_gb" {
 variable "share_name" {
   description = "The name of the file share."
   type        = string
-  default     = "share1"
+  default     = "vol1"
 }
 
 variable "network" {
