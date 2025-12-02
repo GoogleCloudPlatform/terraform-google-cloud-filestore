@@ -63,3 +63,7 @@ spec:
         tier:
           name: tier
           title: Tier
+    runtime:
+      outputs:
+        mount_point:
+          visibility: VISIBILITY_ROOT

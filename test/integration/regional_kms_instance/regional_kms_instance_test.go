@@ -15,6 +15,7 @@
 package regional_kms_instance
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
@@ -32,6 +33,9 @@ func TestRegionalKMSInstance(t *testing.T) {
 		instanceName := example.GetStringOutput("instance_name")
 		kmsKeyName := example.GetStringOutput("kms_key_name")
 		instanceLocation := example.GetStringOutput("instance_location")
+		instanceIP := example.GetStringOutput("instance_ip_address")
+		shareName := example.GetStringOutput("share_name")
+		mountPoint := example.GetStringOutput("mount_point")
 
 		assert.Equal("terraform-blueprint-regional-kms-instance", instanceName, "The instance name should be terraform-blueprint-regional-kms-instance")
 		assert.Equal("us-central1", instanceLocation, "The instance location should be us-central1")
@@ -39,10 +43,11 @@ func TestRegionalKMSInstance(t *testing.T) {
 		assert.Equal(kmsKeyName, instance[0].Get("kmsKeyName").String(), "The instance should be encrypted with the correct KMS key")
 		assert.Equal("REGIONAL", instance[0].Get("tier").String(), "The instance tier should be ZONAL")
 		assert.Equal("1024", instance[0].Get("fileShares.0.capacityGb").String(), "The instance capacity should be 1024 GB")
-		assert.Equal("share1", instance[0].Get("fileShares.0.name").String(), "The file share name should be share1")
+		assert.Equal("share1", shareName, "The terraform output share name should be share1")
+		assert.Equal("share1", instance[0].Get("fileShares.0.name").String(), "The gcloud instance share name should be share1")
 		assert.Equal("default", instance[0].Get("networks.0.network").String(), "The instance should be attached to the default network")
 		assert.Equal("MODE_IPV4", instance[0].Get("networks.0.modes.0").String(), "The instance should have MODE_IPV4 network mode")
-
+		assert.Equal(fmt.Sprintf("%s:/%s", instanceIP, shareName), mountPoint, "The mount point should be correctly formatted.")
 	})
 	example.Test()
 }

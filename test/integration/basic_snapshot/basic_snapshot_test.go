@@ -15,6 +15,7 @@
 package basic_snapshot
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
@@ -33,6 +34,9 @@ func TestBasicSnapshot(t *testing.T) {
 		instanceName := example.GetStringOutput("source_instance_name")
 		snapshotLocation := example.GetStringOutput("snapshot_location")
 		instanceLocation := example.GetStringOutput("instance_location")
+		instanceIP := example.GetStringOutput("instance_ip_address")
+		shareName := example.GetStringOutput("share_name")
+		mountPoint := example.GetStringOutput("mount_point")
 
 		assert.Equal("us-central1", snapshotLocation, "The snapshot location should be us-central1")
 		snapshot := gcloud.Run(t, "filestore instances snapshots describe", gcloud.WithCommonArgs([]string{snapshotName, "--project", projectID, "--instance", instanceName, "--instance-location", instanceLocation, "--format", "json"})).Array()
@@ -43,9 +47,11 @@ func TestBasicSnapshot(t *testing.T) {
 		instance := gcloud.Run(t, "filestore instances describe", gcloud.WithCommonArgs([]string{instanceName, "--project", projectID, "--location", instanceLocation, "--format", "json"})).Array()
 		assert.Equal("REGIONAL", instance[0].Get("tier").String(), "The instance tier should be ZONAL")
 		assert.Equal("1024", instance[0].Get("fileShares.0.capacityGb").String(), "The instance capacity should be 1024 GB")
-		assert.Equal("share1", instance[0].Get("fileShares.0.name").String(), "The file share name should be share1")
+		assert.Equal("share1", shareName, "The terraform output share name should be share1")
+		assert.Equal("share1", instance[0].Get("fileShares.0.name").String(), "The gcloud instance share name should be share1")
 		assert.Equal("default", instance[0].Get("networks.0.network").String(), "The instance should be attached to the default network")
 		assert.Equal("MODE_IPV4", instance[0].Get("networks.0.modes.0").String(), "The instance should have MODE_IPV4 network mode")
+		assert.Equal(fmt.Sprintf("%s:/%s", instanceIP, shareName), mountPoint, "The mount point should be correctly formatted.")
 	})
 	example.Test()
 }

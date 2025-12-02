@@ -38,3 +38,13 @@ output "location" {
   description = "The location of the Filestore instance."
   value       = var.location
 }
+
+output "share_name" {
+  description = "The name of the file share."
+  value       = var.share_name
+}
+
+output "mount_point" {
+  description = "The mount point of the Filestore instance."
+  value       = format("%s:/%s", google_filestore_instance.default.networks[0].ip_addresses[0], var.share_name)
+}

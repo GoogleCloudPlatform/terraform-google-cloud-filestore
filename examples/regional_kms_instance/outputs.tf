@@ -43,3 +43,13 @@ output "instance_location" {
   description = "The location of the Filestore instance."
   value       = module.google_filestore_instance.location
 }
+
+output "share_name" {
+  description = "The name of the file share."
+  value       = module.google_filestore_instance.share_name
+}
+
+output "mount_point" {
+  description = "The mount point of the Filestore instance."
+  value       = module.google_filestore_instance.mount_point
+}

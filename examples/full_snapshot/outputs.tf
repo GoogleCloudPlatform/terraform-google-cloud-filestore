@@ -50,3 +50,13 @@ output "project_id" {
   description = "The ID of the project in which the resource belongs."
   value       = var.project_id
 }
+
+output "share_name" {
+  description = "The name of the file share."
+  value       = module.google_filestore_instance.share_name
+}
+
+output "mount_point" {
+  description = "The mount point of the Filestore instance."
+  value       = module.google_filestore_instance.mount_point
+}
