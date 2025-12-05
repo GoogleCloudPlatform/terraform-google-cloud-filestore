@@ -60,7 +60,7 @@ spec:
         varType: string
         required: true
       - name: tier
-        description: The service tier of the instance. Examples include BASIC_HDD, BASIC_SSD, ZONAL, REGIONAL, ENTERPRISE.
+        description: The service tier of the instance. Examples include ZONAL, REGIONAL, BASIC_HDD, BASIC_SSD, ENTERPRISE.
         varType: string
         defaultValue: REGIONAL
       - name: capacity_gb
@@ -106,14 +106,6 @@ spec:
         description: The file protocol of the Filestore instance.
         varType: string
         defaultValue: NFS_V3
-      - name: create_snapshot
-        description: Whether to create a Filestore snapshot.
-        varType: bool
-        defaultValue: false
-      - name: create_backup
-        description: Whether to create a Filestore backup.
-        varType: bool
-        defaultValue: false
     outputs:
       - name: instance_id
         description: The fully qualified ID of the Filestore instance.
@@ -131,9 +123,11 @@ spec:
         description: The location of the Filestore instance.
         type: string
       - name: mount_point
-        description: The mount point of the Filestore instance.
+        description: The mount point of the Filestore instance in the form of <ip_address>:/<share_name>
+        type: string
       - name: share_name
         description: The name of the file share.
+        type: string
   requirements:
     roles:
       - level: Project

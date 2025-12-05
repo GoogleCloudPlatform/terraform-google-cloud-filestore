@@ -22,12 +22,12 @@ Basic usage of this module is as follows:
 
 ```hcl
 variable "gcp_project_id" {
-  description = "The ID of the GCP project to deploy resources into."
+  description = "The GCP project id to deploy resources into."
   type        = string
 }
 
 module "google_filestore_instance" {
-  source  = "terraform-google-modules/filestore/google"
+  source  = "GoogleCloudPlatform/filestore/google"
   version = "~> 0.1"
 
   project       = var.gcp_project_id
@@ -108,8 +108,6 @@ Functional examples are included in the
 |------|-------------|------|---------|:--------:|
 | capacity\_gb | The capacity of the file share in gigabytes. | `number` | `1024` | no |
 | connect\_mode | The network connect mode of the Filestore instance. | `string` | `"DIRECT_PEERING"` | no |
-| create\_backup | Whether to create a Filestore backup. | `bool` | `false` | no |
-| create\_snapshot | Whether to create a Filestore snapshot. | `bool` | `false` | no |
 | instance\_name | The name of the Filestore instance. The name must be unique within the specified instance. | `string` | n/a | yes |
 | kms\_key\_name | The resource name of the KMS key to be used for data encryption. | `string` | `null` | no |
 | location | The location for the Filestore instance. Can be a zone or a region, depends on the tier. | `string` | n/a | yes |
@@ -119,7 +117,7 @@ Functional examples are included in the
 | project\_id | The ID of the project in which the resource belongs. | `string` | n/a | yes |
 | protocol | The file protocol of the Filestore instance. | `string` | `"NFS_V3"` | no |
 | share\_name | The name of the file share. | `string` | `"vol1"` | no |
-| tier | The service tier of the instance. Examples include BASIC\_HDD, BASIC\_SSD, ZONAL, REGIONAL, ENTERPRISE. | `string` | `"REGIONAL"` | no |
+| tier | The service tier of the instance. Examples include ZONAL, REGIONAL, BASIC\_HDD, BASIC\_SSD, ENTERPRISE. | `string` | `"REGIONAL"` | no |
 
 ## Outputs
 
@@ -130,7 +128,7 @@ Functional examples are included in the
 | instance\_name | The name of the Filestore instance. |
 | kms\_key\_name | The name of the KMS key used to encrypt the Filestore instance. |
 | location | The location of the Filestore instance. |
-| mount\_point | The mount point of the Filestore instance. |
+| mount\_point | The mount point of the Filestore instance in the form of <ip\_address>:/<share\_name> |
 | share\_name | The name of the file share. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

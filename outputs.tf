@@ -45,6 +45,6 @@ output "share_name" {
 }
 
 output "mount_point" {
-  description = "The mount point of the Filestore instance."
+  description = "The mount point of the Filestore instance in the form of <ip_address>:/<share_name>"
   value       = format("%s:/%s", google_filestore_instance.default.networks[0].ip_addresses[0], var.share_name)
 }

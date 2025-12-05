@@ -43,22 +43,3 @@ resource "google_filestore_instance" "default" {
     connect_mode = var.connect_mode
   }
 }
-
-resource "google_filestore_backup" "default" {
-  count = var.create_backup ? 1 : 0
-
-  project           = var.project_id
-  name              = "${var.instance_name}-backup"
-  location          = var.location
-  source_file_share = var.share_name
-  source_instance   = google_filestore_instance.default.id
-}
-
-resource "google_filestore_snapshot" "default" {
-  count = var.create_snapshot ? 1 : 0
-
-  project  = var.project_id
-  name     = "${var.instance_name}-snapshot"
-  instance = google_filestore_instance.default.name
-  location = var.location
-}

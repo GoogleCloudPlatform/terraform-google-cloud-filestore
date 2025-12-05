@@ -25,7 +25,7 @@ variable "location" {
 }
 
 variable "tier" {
-  description = "The service tier of the instance. Examples include BASIC_HDD, BASIC_SSD, ZONAL, REGIONAL, ENTERPRISE."
+  description = "The service tier of the instance. Examples include ZONAL, REGIONAL, BASIC_HDD, BASIC_SSD, ENTERPRISE."
   type        = string
   default     = "REGIONAL"
 }
@@ -87,16 +87,4 @@ variable "protocol" {
   description = "The file protocol of the Filestore instance."
   type        = string
   default     = "NFS_V3"
-}
-
-variable "create_snapshot" {
-  description = "Whether to create a Filestore snapshot."
-  type        = bool
-  default     = false
-}
-
-variable "create_backup" {
-  description = "Whether to create a Filestore backup."
-  type        = bool
-  default     = false
 }
