@@ -32,3 +32,19 @@ module "project" {
     "cloudkms.googleapis.com"
   ]
 }
+
+data "external" "network_exists" {
+  program = ["bash", "-c", "gcloud compute networks describe default --project=${module.project.project_id} --format='value(selfLink)' 2>/dev/null || echo ''"]
+}
+
+resource "google_compute_network" "default" {
+  # Create the default network if it doesn't exist.
+  # Using an external data source to gracefully check for existence.
+  lifecycle {
+    create_before_destroy = true
+  }
+  count                   = data.external.network_exists.result.stdout == "" ? 1 : 0
+  project                 = module.project.project_id
+  name                    = "default"
+  auto_create_subnetworks = false
+}

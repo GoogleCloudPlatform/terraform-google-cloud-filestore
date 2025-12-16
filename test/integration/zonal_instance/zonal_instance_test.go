@@ -25,9 +25,7 @@ import (
 )
 
 func TestZonalInstance(t *testing.T) {
-	example := tft.NewTFBlueprintTest(t,
-		tft.WithSetupPath("../setup"),
-	)
+	example := tft.NewTFBlueprintTest(t)
 
 	example.DefineVerify(func(assert *assert.Assertions) {
 		example.DefaultVerify(assert)
