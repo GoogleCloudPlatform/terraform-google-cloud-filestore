@@ -33,18 +33,28 @@ module "project" {
   ]
 }
 
-data "external" "network_exists" {
-  program = ["bash", "-c", "gcloud compute networks describe default --project=${module.project.project_id} --format='value(selfLink)' 2>/dev/null || echo ''"]
+# The following null_resource and data source work around a Terraform limitation
+# where a resource's count cannot depend on a value that is only known during apply.
+# Here, we need the project_id to check for the network's existence, but project_id
+# is not available at plan time.
+#
+# This workaround uses a provisioner (which runs during apply) to imperatively
+# create the network if it doesn't exist. Then, the data source reads the network,
+# ensuring it's available in the Terraform state for other resources to reference.
+resource "null_resource" "ensure_default_network" {
+  depends_on = [module.project]
+
+  triggers = {
+    project_id = module.project.project_id
+  }
+
+  provisioner "local-exec" {
+    command = "gcloud compute networks describe default --project=${self.triggers.project_id} &>/dev/null || gcloud compute networks create default --project=${self.triggers.project_id} --subnet-mode=custom --bgp-routing-mode=regional"
+  }
 }
 
-resource "google_compute_network" "default" {
-  # Create the default network if it doesn't exist.
-  # Using an external data source to gracefully check for existence.
-  lifecycle {
-    create_before_destroy = true
-  }
-  count                   = data.external.network_exists.result.stdout == "" ? 1 : 0
-  project                 = module.project.project_id
-  name                    = "default"
-  auto_create_subnetworks = false
+data "google_compute_network" "default" {
+  depends_on = [null_resource.ensure_default_network]
+  project    = module.project.project_id
+  name       = "default"
 }
