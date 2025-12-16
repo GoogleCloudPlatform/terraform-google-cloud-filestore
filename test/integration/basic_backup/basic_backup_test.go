@@ -24,7 +24,9 @@ import (
 )
 
 func TestBasicBackup(t *testing.T) {
-	example := tft.NewTFBlueprintTest(t)
+	example := tft.NewTFBlueprintTest(t,
+		tft.WithSetupPath("../setup"),
+	)
 
 	example.DefineVerify(func(assert *assert.Assertions) {
 		example.DefaultVerify(assert)
