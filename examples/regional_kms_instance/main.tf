@@ -24,6 +24,7 @@ module "google_filestore_instance" {
   kms_key_name  = google_kms_crypto_key.filestore_key.id
   capacity_gb   = 1024
   share_name    = "share1"
+  depends_on    = [google_kms_crypto_key_iam_member.filestore_key_iam]
 }
 
 resource "random_id" "keyring_suffix" {

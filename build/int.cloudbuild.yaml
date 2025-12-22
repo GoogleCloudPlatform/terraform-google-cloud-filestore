@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-timeout: 3600s
+timeout: 9000s
 steps:
 - id: prepare
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
@@ -35,16 +35,16 @@ steps:
   args: ['/bin/bash', '-c', 'cft test run TestZonalInstance --stage teardown --verbose']
 - id: full-zonal-instance-init
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestFullZonalInstance --stage init --verbose']
+  args: ['/bin/bash', '-c', 'cft test run TestZonalFullInstance --stage init --verbose']
 - id: full-zonal-instance-apply
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestFullZonalInstance --stage apply --verbose']
+  args: ['/bin/bash', '-c', 'cft test run TestZonalFullInstance --stage apply --verbose']
 - id: full-zonal-instance-verify
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestFullZonalInstance --stage verify --verbose']
+  args: ['/bin/bash', '-c', 'cft test run TestZonalFullInstance --stage verify --verbose']
 - id: full-zonal-instance-teardown
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'cft test run TestFullZonalInstance --stage teardown --verbose']
+  args: ['/bin/bash', '-c', 'cft test run TestZonalFullInstance --stage teardown --verbose']
 - id: regional-protocol-instance-init
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'cft test run TestRegionalProtocolInstance --stage init --verbose']
