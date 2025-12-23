@@ -8,6 +8,13 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.1.1](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/compare/v0.1.0...v0.1.1) (2025-12-23)
+
+
+### Bug Fixes
+
+* Add input variables validation to metadata.display.yaml. Add/change input variables documentation to relevant files ([#9](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/issues/9)) ([1c67ab9](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/commit/1c67ab9fb3f2f4c50772f3a183ab97e2451cc087))
+
 ## 0.1.0 (2025-12-17)
 
 
