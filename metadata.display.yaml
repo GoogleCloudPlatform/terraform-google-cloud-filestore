@@ -29,31 +29,48 @@ spec:
       variables:
         capacity_gb:
           name: capacity_gb
-          title: Capacity Gb
+          title: Capacity (GB)
+          min: 1024
+          validation: "Min: 1024 GB. Learn more: https://docs.cloud.google.com/filestore/docs/creating-instances#allocate_capacity"
+          subtext: |
+            The desired capacity of the volume in GB. Acceptable instance capacities vary by tier:
+            - BASIC_HDD: 1TB - 63.9TB in 1GB increments.
+            - BASIC_SSD: 2.5TB - 63.9TB in 1GB increments.
+            - ZONAL: 1TB-9.75TB in 256GB increments, or 10TB-100TB in 2.5TB increments.
+            - ENTERPRISE: 1TB - 10TB in 256GB increments.
+            - REGIONAL: 1TB-9.75TB in 256GB increments, or 10TB-100TB in 2.5TB increments.
+
+            Learn more at: https://docs.cloud.google.com/filestore/docs/creating-instances#allocate_capacity
         connect_mode:
           name: connect_mode
           title: Connect Mode
-        create_backup:
-          name: create_backup
-          title: Create Backup
-        create_snapshot:
-          name: create_snapshot
-          title: Create Snapshot
+          enumValueLabels:
+            - label: Direct Peering
+              value: DIRECT_PEERING
+            - label: Private Service Access
+              value: PRIVATE_SERVICE_ACCESS
+            - label: Private Service Connect
+              value: PRIVATE_SERVICE_CONNECT
         instance_name:
           name: instance_name
           title: Instance Name
+          regexValidation: ^[a-z][a-z0-9-]{4,28}[a-z0-9]$
+          validation: Instance name must start with a lowercase letter, followed by up to 62 lowercase letters, numbers, or hyphens, and cannot end with a hyphen
         kms_key_name:
           name: kms_key_name
-          title: Kms Key Name
+          title: KMS Key Name
         location:
           name: location
           title: Location
+          subtext: GCP zone for zonal instances or region for regional instances.
         network:
           name: network
-          title: Network
+          title: VPC Network
         network_modes:
           name: network_modes
           title: Network Modes
+          regexValidation: ^\["(ADDRESS_MODE_UNSPECIFIED|MODE_IPV4|MODE_IPV6)"(?:,"(?:ADDRESS_MODE_UNSPECIFIED|MODE_IPV4|MODE_IPV6)")*\]$
+          validation: "IP versions for which the instance has IP addresses assigned. Each value may be one of: ADDRESS_MODE_UNSPECIFIED, MODE_IPV4, MODE_IPV6."
         nfs_export_options:
           name: nfs_export_options
           title: Nfs Export Options
@@ -62,13 +79,32 @@ spec:
           title: Project Id
         protocol:
           name: protocol
-          title: Protocol
+          title: File Sharing Protocol
+          validation: NFSv4.1 can be used with ZONAL, REGIONAL and ENTERPRISE. The default is NFSv3
+          enumValueLabels:
+            - label: NFSv3
+              value: NFS_V3
+            - label: NFSv4.1
+              value: NFS_V4_1
         share_name:
           name: share_name
           title: Share Name
+          regexValidation: ^[a-z][a-z0-9_]{0,62}$
+          validation: Must use 1-16 characters for the basic service tier and 1-63 characters for all other service tiers. Must use lowercase letters, numbers, or underscores [a-z0-9_]. Must start with a letter
         tier:
           name: tier
-          title: Tier
+          title: Service Tier
+          enumValueLabels:
+            - label: Basic HDD
+              value: BASIC_HDD
+            - label: Basic SSD
+              value: BASIC_SSD
+            - label: Enterprise
+              value: ENTERPRISE
+            - label: Zonal
+              value: ZONAL
+            - label: Regional
+              value: REGIONAL
     runtime:
       outputs:
         mount_point:

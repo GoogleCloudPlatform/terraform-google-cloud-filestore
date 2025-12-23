@@ -106,18 +106,18 @@ Functional examples are included in the
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| capacity\_gb | The capacity of the file share in gigabytes. | `number` | `1024` | no |
-| connect\_mode | The network connect mode of the Filestore instance. | `string` | `"DIRECT_PEERING"` | no |
-| instance\_name | The name of the Filestore instance. The name must be unique within the specified instance. | `string` | n/a | yes |
+| capacity\_gb | The desired capacity of the volume in GB. Acceptable instance capacities vary by tier:<br><br>- BASIC\_HDD: 1TB - 63.9TB in 1GB increments.<br>- BASIC\_SSD: 2.5TB - 63.9TB in 1GB increments.<br>- ZONAL: 1TB-9.75TB in 256GB increments, or 10TB-100TB in 2.5TB increments.<br>- ENTERPRISE: 1TB - 10TB in 256GB increments.<br>- REGIONAL: 1TB-9.75TB in 256GB increments, or 10TB-100TB in 2.5TB increments.<br><br>Learn more at: https://docs.cloud.google.com/filestore/docs/creating-instances#allocate_capacity | `number` | `1024` | no |
+| connect\_mode | The network connect mode of the Filestore instance. Possible values are DIRECT\_PEERING, PRIVATE\_SERVICE\_ACCESS, and PRIVATE\_SERVICE\_CONNECT. | `string` | `"DIRECT_PEERING"` | no |
+| instance\_name | The name of the Filestore instance. Instance name must start with a lowercase letter, followed by up to 62 lowercase letters, numbers, or hyphens, and cannot end with a hyphen. | `string` | n/a | yes |
 | kms\_key\_name | The resource name of the KMS key to be used for data encryption. | `string` | `null` | no |
-| location | The location for the Filestore instance. Can be a zone or a region, depends on the tier. | `string` | n/a | yes |
-| network | The name of the network to which the Filestore instance is connected. | `string` | `"default"` | no |
-| network\_modes | The IP versions for the network. Examples include MODE\_IPV4, MODE\_IPV6. | `list(string)` | <pre>[<br>  "MODE_IPV4"<br>]</pre> | no |
+| location | The GCP zone for zonal instances or region for regional instances. | `string` | n/a | yes |
+| network | The name of the GCE VPC network to which the Filestore instance is connected. | `string` | `"default"` | no |
+| network\_modes | IP versions for which the instance has IP addresses assigned. Each value may be one of: ADDRESS\_MODE\_UNSPECIFIED, MODE\_IPV4, MODE\_IPV6. | `list(string)` | <pre>[<br>  "MODE_IPV4"<br>]</pre> | no |
 | nfs\_export\_options | NFS export options for the file share. | <pre>list(object({<br>    ip_ranges   = list(string)<br>    access_mode = string<br>    squash_mode = string<br>    anon_uid    = number<br>    anon_gid    = number<br>  }))</pre> | `[]` | no |
 | project\_id | The ID of the project in which the resource belongs. | `string` | n/a | yes |
-| protocol | The file protocol of the Filestore instance. | `string` | `"NFS_V3"` | no |
-| share\_name | The name of the file share. | `string` | `"vol1"` | no |
-| tier | The service tier of the instance. Examples include ZONAL, REGIONAL, BASIC\_HDD, BASIC\_SSD, ENTERPRISE. | `string` | `"REGIONAL"` | no |
+| protocol | File sharing protocol. Possible values are NFS\_V3 (NFSv3) and NFS\_V4\_1 (NFSv4.1). NFSv4.1 can be used with ZONAL, REGIONAL and ENTERPRISE. The default is NFSv3. | `string` | `"NFS_V3"` | no |
+| share\_name | The name of the file share. Must use 1-16 characters for the basic service tier and 1-63 characters for all other service tiers. Must use lowercase letters, numbers, or underscores [a-z0-9\_]. Must start with a letter. | `string` | `"vol1"` | no |
+| tier | The service tier of the instance. Possible values are BASIC\_HDD, BASIC\_SSD, ENTERPRISE, ZONAL, and REGIONAL. | `string` | `"REGIONAL"` | no |
 
 ## Outputs
 
