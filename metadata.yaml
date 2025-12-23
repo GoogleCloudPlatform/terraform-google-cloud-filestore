@@ -24,7 +24,7 @@ spec:
     source:
       repo: sso://ospo-internal/releasing/terraform-google-cloud-filestore/terraform-google-cloud-filestore
       sourceType: git
-    version: 0.1.0
+    version: 0.1.1
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
