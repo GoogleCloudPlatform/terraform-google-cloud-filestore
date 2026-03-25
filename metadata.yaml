@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -45,6 +45,8 @@ spec:
         location: examples/regional_kms_instance
       - name: regional_protocol_instance
         location: examples/regional_protocol_instance
+      - name: replication_instance
+        location: examples/replication_instance
       - name: zonal_full_instance
         location: examples/zonal_full_instance
       - name: zonal_instance
@@ -154,4 +156,4 @@ spec:
       - cloudkms.googleapis.com
     providerVersions:
       - source: hashicorp/google
-        version: ">= 3.53, < 7"
+        version: ">= 3.53, < 8"
