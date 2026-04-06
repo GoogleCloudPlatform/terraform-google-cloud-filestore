@@ -8,6 +8,14 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.2.0](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/compare/v0.1.1...v0.2.0) (2026-04-06)
+
+
+### Features
+
+* add example for Filestore instance replication with Terraform ([#18](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/issues/18)) ([dbbe893](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/commit/dbbe89321f49fadd1ff99e331e132fdb047b9006))
+* **deps:** Update Terraform google to v7 ([#16](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/issues/16)) ([1772cf1](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/commit/1772cf17b5a1f0180928777831f72e2791aece7f))
+
 ## [0.1.1](https://github.com/GoogleCloudPlatform/terraform-google-cloud-filestore/compare/v0.1.0...v0.1.1) (2025-12-23)
 
 

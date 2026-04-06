@@ -15,15 +15,10 @@
  */
 
 terraform {
-  required_version = ">= 1.3"
   required_providers {
     google = {
-      source  = "hashicorp/google"
-      version = ">= 3.53, < 8"
+      source = "hashicorp/google"
     }
   }
-
-  provider_meta "google" {
-    module_name = "blueprints/terraform/cloud-filestore/v0.2.0"
-  }
+  required_version = ">= 0.13"
 }
