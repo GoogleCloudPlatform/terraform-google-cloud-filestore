@@ -28,7 +28,7 @@ variable "gcp_project_id" {
 
 module "google_filestore_instance" {
   source  = "GoogleCloudPlatform/filestore/google"
-  version = "~> 0.2"
+  version = "~> 0.3"
 
   project       = var.gcp_project_id
   name          = "my-filestore-regional-instance"
